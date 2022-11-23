@@ -1,0 +1,11 @@
+{% load static %}
+{% block content %}
+  <h1>Name: {{ item.name }}</h1>
+  <p>Description: {{ item.description }}</p>
+  <p>Price: {{ item.get_display_price }}</p>
+  <form action="{% url 'buy' item.id %}" method="post">
+    {% csrf_token %}
+    <button id="buy-button">Buy</button>
+  </form>
+  <script {% static 'main.js' %}></script>
+{% endblock content %}
