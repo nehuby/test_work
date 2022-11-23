@@ -2,7 +2,11 @@
 
 [Install `Docker Compose`](https://docs.docker.com/compose/install/).
 
-Run
+### Configuration
+
+Copy the `.env.template` file to `.env`. Set the settings you need in the `.env` file.
+
+### Run
 
 ```bash
 docker compose build

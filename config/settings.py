@@ -10,7 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import environ
 from pathlib import Path
+
+env = environ.Env()
+# reading .env file
+environ.Env.read_env(".env.template")
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,11 +26,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-__04eiaz4%o+wbvj4!he!5)u^_k5_59o2iazr85za(f@_iqdtl"
+SECRET_KEY = env.str("DJANGO_SECRET_KEY")
 
 
-STRIPE_PUBLIC_KEY = "pk_test_51M5C3SK3rv9qQgI4fcHKnzn0dfu7Bkt4mxUhpgv8QZ41kf5X4DhNs4krzM8kFUyY2ND9CTLYURJPGhTcJNLo7fe1000OWOEXO4"
-STRIPE_SECRET_KEY = "sk_test_51M5C3SK3rv9qQgI48vAZW4Ew4HY1UMLiHvm5e3ge67gR0Vqnp8MPHWMmaGEhEUlk6TKLlSJU8i02dgynZ0Ql0Epp00IyQ11Wps"
+STRIPE_PUBLIC_KEY = env.str("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = env.str("STRIPE_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,9 +87,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "database",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
+        "NAME": env.str("POSTGRES_DB"),
+        "USER": env.str("POSTGRES_USER"),
+        "PASSWORD": env.str("POSTGRES_PASSWORD"),
         "HOST": "postgres",
         "PORT": "5432",
     }
